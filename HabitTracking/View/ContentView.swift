@@ -16,10 +16,19 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(habits.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
+                    NavigationLink(destination: HabitDatail(habitDatail: item) ) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.title)
+                                    .font(.title.bold())
+                                
+                                HStack {
+                                    Image(systemName: "flag.circle")
+                                    Text(item.numberOfTimesDescription())
+                                    Spacer()
+                                }
+                                Text(item.description)
+                            }
                         }
                     }
                 }
@@ -32,7 +41,12 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                EditButton()
             }
+            .sheet(isPresented: $showingAddHabits) {
+                AddHabit(habits: habits)
+            }
+            .navigationViewStyle(.stack)
         }
         
         
