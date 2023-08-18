@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct HabitItem: Identifiable, Codable {
+struct HabitItem: Identifiable, Codable, Equatable {
     var id = UUID()
     let title: String
     let description: String

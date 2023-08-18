@@ -13,6 +13,7 @@ struct CustomView: View {
        @State private var numberOfTimes = 0
        @ObservedObject var habits: Habits
        @Environment(\.dismiss) var dismiss
+       
     
        var body: some View {
            

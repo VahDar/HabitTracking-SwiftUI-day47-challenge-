@@ -9,23 +9,21 @@ import SwiftUI
 
 struct HabitDetail: View {
     var habitDetail: HabitItem
+    @ObservedObject var habit: Habits
+    var habitsVM: ShowHabitsViewModel
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            Text(habitDetail.title)
-                .font(.largeTitle.bold())
-                .frame(maxWidth: .infinity)
-            Text(habitDetail.description)
-                .frame(maxWidth: .infinity)
-            Text("______________________________")
-                .frame(maxWidth: .infinity)
-            
+        NavigationView {
+            CustomViewDetails(habitDetail: HabitItem(title: habitDetail.title, description: habitDetail.description), habits: habitsVM)
+                .padding(.bottom, 200)
         }
+
+        
     }
 }
 
 struct HabitDatail_Previews: PreviewProvider {
     static var previews: some View {
-        HabitDetail(habitDetail: HabitItem(title: "Test", description: "Test", numberOfTimes: 0))
+        HabitDetail(habitDetail: HabitItem(title: "Test", description: "Test", numberOfTimes: 0), habit: Habits(), habitsVM: ShowHabitsViewModel(habits: Habits(), selectedHabits: HabitItem(title: "", description: "")))
+                
     }
 }

@@ -26,4 +26,11 @@ class Habits: ObservableObject {
         }
         items = []
     }
+    
+    func updateHbits(_ habitsItem: HabitItem) {
+        guard let selectedIndex = items.firstIndex(of: habitsItem) else {
+            return
+        }
+        items[selectedIndex] = habitsItem
+    }
 }

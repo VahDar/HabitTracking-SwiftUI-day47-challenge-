@@ -9,43 +9,44 @@ import SwiftUI
 
 struct CustomViewDetails: View {
     var habitDetail: HabitItem
+
     @Environment(\.dismiss) var dismiss
-    @StateObject var habits: Habits
+    @ObservedObject var habits: ShowHabitsViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             
             Text(habitDetail.title)
                 .font(.largeTitle.bold())
                 .frame(maxWidth: .infinity)
+                .padding(.top,10)
             Text(habitDetail.description)
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 2)
             Text("______________________________")
                 .frame(maxWidth: .infinity)
-            Text(habitDetail.numberOfTimes < 2 ? "You did \(habitDetail.numberOfTimes) time" : "You did \(habitDetail.numberOfTimes) times")
+            Text(habits.selectedHabits.numberOfTimes < 2 ? "You did \(habits.selectedHabits.numberOfTimes) time" : "You did \(habits.selectedHabits.numberOfTimes) times")
                 .frame(maxWidth: .infinity)
                 .padding(.top)
             
-            HStack(alignment: .center) {
-                Spacer()
-                CustomButton(title: "No", background: .red) {
-                    dismiss()
-                }
-                Spacer()
+            VStack(alignment: .center) {
+                Text("Just completed this activity?")
+                    .frame(maxWidth: .infinity)
                 CustomButton(title: "Yes", background: .green) {
-                    
-                    dismiss()
+                   habits.increaseNumberOfTimes()
                     
                 }
-                Spacer()
+                .padding(.bottom, 20)
+                    
             }
             
         }
+        .background(Color.white)
+       .cornerRadius(20)
+       .shadow(color: Color.gray, radius: 6, x: 3, y: 3)
+       .padding()
     }
+                
 }
 
-struct CustomViewDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomViewDetails(habitDetail: HabitItem(title: "Test", description: "Test", numberOfTimes: 0), habits: Habits())
-    }
-}
+

@@ -11,7 +11,7 @@ import SwiftUI
 struct HabitTrackingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(habit: ShowHabitsViewModel(habits: Habits(), selectedHabits: HabitItem(title: "", description: "")))
         }
     }
 }
