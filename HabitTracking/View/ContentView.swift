@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(habits.items) { item in
-                    NavigationLink(destination: HabitDatail(habitDatail: item) ) {
+                    NavigationLink(destination: HabitDetail(habitDetail: item) ) {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(item.title)
