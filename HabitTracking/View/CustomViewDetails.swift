@@ -33,7 +33,7 @@ struct CustomViewDetails: View {
                 Text("Just completed this activity?")
                     .frame(maxWidth: .infinity)
                 CustomButton(title: "Yes", background: .green) {
-                   habits.increaseNumberOfTimes()
+                    habits.increaseNumberOfTimes()
                     
                 }
                 .padding(.bottom, 20)

@@ -19,18 +19,36 @@ class Habits: ObservableObject {
     
     init() {
         if let savedItems = UserDefaults.standard.data(forKey: "Items") {
-            if let decoderItems = try? JSONDecoder().decode([HabitItem].self, from: savedItems) {
+            do {
+                let decoderItems = try JSONDecoder().decode([HabitItem].self, from: savedItems)
                 items = decoderItems
-                return
+            } catch {
+                print("Error decoding data: \(error)")
             }
         }
-        items = []
     }
     
     func updateHbits(_ habitsItem: HabitItem) {
-        guard let selectedIndex = items.firstIndex(of: habitsItem) else {
-            return
-        }
-        items[selectedIndex] = habitsItem
+        if let index = items.firstIndex(where: { $0.id == habitsItem.id }) {
+                    items[index] = habitsItem
+                }
     }
+    
+    func saveToUserDefaults() {
+        do {
+            let encodedData = try JSONEncoder().encode(items)
+            UserDefaults.standard.set(encodedData, forKey: "Items")
+        } catch {
+            print("Error encoding data: \(error)")
+        }
+    }
+
+        func increaseCompletionCount(for habit: HabitItem) {
+            if let index = items.firstIndex(of: habit) {
+                var updatedHabit = items[index]
+                updatedHabit.numberOfTimesCountPlus()
+                items[index] = updatedHabit
+                saveToUserDefaults()
+            }
+        }
 }

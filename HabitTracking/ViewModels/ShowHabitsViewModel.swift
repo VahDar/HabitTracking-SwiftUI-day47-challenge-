@@ -27,5 +27,6 @@ class ShowHabitsViewModel: ObservableObject {
     func increaseNumberOfTimes() {
         selectedHabits.numberOfTimesCountPlus()
         habits.updateHbits(selectedHabits)
+        habits.saveToUserDefaults()
     }
 }
